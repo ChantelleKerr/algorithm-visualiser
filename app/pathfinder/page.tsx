@@ -1,6 +1,6 @@
-import Grid from "../../components/Grid/Grid";
+import Grid from "@/components/Grid/Grid";
 
-const PathFinderVisualisation = () => {
+const PathFinder = () => {
   return (
     <>
       <Grid />
@@ -8,4 +8,4 @@ const PathFinderVisualisation = () => {
   );
 };
 
-export default PathFinderVisualisation;
+export default PathFinder;

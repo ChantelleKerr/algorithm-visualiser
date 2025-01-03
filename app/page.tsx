@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
-  return <p>Hello</p>;
+  return <Link href="/pathfinder">Path Finder Algorithms</Link>;
 }
