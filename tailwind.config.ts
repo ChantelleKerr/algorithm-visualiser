@@ -12,6 +12,12 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        start: "#72D094",
+        end: "#EB7575",
+        path: "#847996",
+        wall: "black",
+        visited: "#4ECDC4",
+
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

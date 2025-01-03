@@ -4,9 +4,8 @@ import { NodeType, NodeStatus, GridContainerProps } from "@/types/types";
 export const GridContainer = styled.div<GridContainerProps>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.cols}, 1fr);
-
-  padding: 10px;
-  max-width: 80vw;
+  width: min(90vw, ${(props) => props.cols * 100}px);
+  max-height: 80vh;
 `;
 
 export const GridItem = styled.div<{
