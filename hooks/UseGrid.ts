@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Node, NodeType, NodeStatus } from "../../types/types";
+import { Node, NodeType, NodeStatus } from "@/types/types";
 
 const createNode = (
   row: number,

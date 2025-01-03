@@ -1,5 +1,5 @@
 import { Node, NodeType, NodeStatus } from "@/types/types";
-import sleep from "@/app/utils/utils";
+import sleep from "@/utils/utils";
 
 export const BFS = async (
   grid: Node[][],
@@ -58,10 +58,10 @@ const getNeighbours = (
   const { row, col } = parent;
 
   const directions = [
-    { rowOffset: -1, colOffset: 0 }, // Up
-    { rowOffset: 1, colOffset: 0 }, // Down
-    { rowOffset: 0, colOffset: -1 }, // Left
-    { rowOffset: 0, colOffset: 1 }, // Right
+    { rowOffset: -1, colOffset: 0 },
+    { rowOffset: 1, colOffset: 0 },
+    { rowOffset: 0, colOffset: -1 },
+    { rowOffset: 0, colOffset: 1 },
   ];
 
   directions.forEach((direction) => {
@@ -96,7 +96,10 @@ const getPath = (
     setGrid((prevGrid) => {
       const newGrid = prevGrid.map((row, rowIndex) =>
         row.map((n, colIndex) =>
-          rowIndex === node.row && colIndex === node.col
+          rowIndex === node.row &&
+          colIndex === node.col &&
+          node.type !== NodeType.Start &&
+          node.type !== NodeType.End
             ? { ...n, type: NodeType.Path }
             : n
         )
