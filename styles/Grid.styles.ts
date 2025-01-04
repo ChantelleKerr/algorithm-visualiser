@@ -31,7 +31,7 @@ export const GridItem = styled.div<{
             return "#4ECDC4";
           case NodeStatus.Unseen:
           default:
-            return "#292F36";
+            return "white";
         }
     }
   }};

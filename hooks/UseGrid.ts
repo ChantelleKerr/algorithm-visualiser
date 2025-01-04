@@ -37,7 +37,6 @@ const useGrid = () => {
       }
       newGrid.push(newRow);
     }
-    console.log("EWFWEF ", newGrid);
     setGrid(newGrid);
   };
 

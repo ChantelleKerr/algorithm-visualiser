@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import { BFS } from "@/algorithms/pathfinder/bfs";
 import { Node } from "@/types/types";
+import { useState } from "react";
 
 interface Props {
   grid: Node[][];
@@ -17,13 +18,20 @@ interface Props {
   cols: number;
 }
 const ControlPanel = ({ grid, setGrid, rows, cols }: Props) => {
+  const [algorithm, setAlgorithm] = useState<string>();
   const visualiseAlgorithm = () => {
-    BFS(grid, grid[0][0], setGrid, rows, cols);
+    switch (algorithm) {
+      case "BFS":
+        BFS(grid, grid[0][0], setGrid, rows, cols);
+        return;
+      default:
+        return;
+    }
   };
 
   return (
     <div className="flex w-full py-14 justify-end gap-4">
-      <Select>
+      <Select onValueChange={(val) => setAlgorithm(val)}>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Search Algorithm" />
         </SelectTrigger>

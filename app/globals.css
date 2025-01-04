@@ -9,7 +9,7 @@ body {
 
 @layer base {
   :root {
-    --background: #d4dae1;
+    --background: #e5e5e5;
     --foreground: 240 10% 3.9%;
     --primary: #292f36;
     --primary-foreground: #d4dae1;
