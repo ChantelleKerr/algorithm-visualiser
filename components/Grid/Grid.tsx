@@ -1,6 +1,7 @@
 "use client";
 import { GridContainer, GridItem } from "@/styles/Grid.styles";
 import { Node } from "@/types/types";
+import Legend from "@/components/Grid/Legend";
 
 interface Props {
   grid: Node[][];
@@ -15,7 +16,8 @@ const Grid = ({ grid, rows, cols }: Props) => {
 
   return (
     <>
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full flex flex-col items-center justify-center">
+        <Legend />
         <GridContainer rows={rows} cols={cols}>
           {grid.map((row, rowIndex) =>
             row.map((node, colIndex) => (
