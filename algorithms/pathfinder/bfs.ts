@@ -1,4 +1,5 @@
 import { Node, NodeType, NodeStatus } from "@/types/types";
+import { getNeighbours, getPath } from "@/algorithms/helper";
 import sleep from "@/utils/utils";
 
 export const BFS = async (
@@ -13,22 +14,22 @@ export const BFS = async (
   const parentMap: Map<Node, Node | null> = new Map();
 
   while (queue.length !== 0) {
-    let current_node = queue.shift();
-    if (!current_node) continue;
+    let current = queue.shift();
+    if (!current) continue;
 
-    if (current_node.type === NodeType.End) {
-      getPath(current_node, parentMap, setGrid);
+    if (current.type === NodeType.End) {
+      getPath(current, parentMap, setGrid);
       break;
     }
 
-    if (!visited.has(current_node)) {
-      visited.add(current_node);
-      current_node.status = NodeStatus.Seen;
+    if (!visited.has(current)) {
+      visited.add(current);
+      current.status = NodeStatus.Seen;
 
       setGrid((prevGrid) =>
         prevGrid.map((row) =>
           row.map((node) =>
-            node.row === current_node.row && node.col === current_node.col
+            node.row === current.row && node.col === current.col
               ? { ...node, status: NodeStatus.Seen }
               : node
           )
@@ -37,76 +38,15 @@ export const BFS = async (
 
       await sleep(100);
 
-      const neighbours = getNeighbours(grid, current_node, ROWS, COLS);
+      const neighbours = getNeighbours(grid, current, ROWS, COLS);
       neighbours.forEach((neighbour) => {
         if (!visited.has(neighbour)) {
           queue.push(neighbour);
-          parentMap.set(neighbour, current_node);
+          parentMap.set(neighbour, current);
         }
       });
     }
   }
-};
-
-const getNeighbours = (
-  grid: Node[][],
-  parent: Node,
-  ROWS: number,
-  COLS: number
-): Node[] => {
-  const neighbours: Node[] = [];
-  const { row, col } = parent;
-
-  const directions = [
-    { rowOffset: -1, colOffset: 0 },
-    { rowOffset: 1, colOffset: 0 },
-    { rowOffset: 0, colOffset: -1 },
-    { rowOffset: 0, colOffset: 1 },
-  ];
-
-  directions.forEach((direction) => {
-    const newRow = row + direction.rowOffset;
-    const newCol = col + direction.colOffset;
-    if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS) {
-      neighbours.push(grid[newRow][newCol]);
-    }
-  });
-
-  return neighbours;
-};
-
-const getPath = (
-  pathNode: Node,
-  parentMap: Map<Node, Node | null>,
-  setGrid: React.Dispatch<React.SetStateAction<Node[][]>>
-) => {
-  if (!pathNode) return;
-
-  const path: Node[] = [];
-  while (pathNode) {
-    path.unshift(pathNode);
-    const nextNode = parentMap.get(pathNode);
-    if (nextNode === undefined || nextNode === null) {
-      break;
-    }
-    pathNode = nextNode;
-  }
-
-  path.forEach((node) => {
-    setGrid((prevGrid) => {
-      const newGrid = prevGrid.map((row, rowIndex) =>
-        row.map((n, colIndex) =>
-          rowIndex === node.row &&
-          colIndex === node.col &&
-          node.type !== NodeType.Start &&
-          node.type !== NodeType.End
-            ? { ...n, type: NodeType.Path }
-            : n
-        )
-      );
-      return newGrid;
-    });
-  });
 };
 
 export const pseudocodeBFS: string = `function bfs(graph, start):
