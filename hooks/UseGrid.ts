@@ -18,7 +18,7 @@ const createNode = (
 const useGrid = () => {
   const [grid, setGrid] = useState<Node[][]>([]);
   const ROWS = 10;
-  const COLS = 10;
+  const COLS = 30;
   const START_POS = [0, 0];
   const END_POS = [9, 9];
 

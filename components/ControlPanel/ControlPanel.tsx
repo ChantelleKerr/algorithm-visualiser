@@ -7,41 +7,86 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { BFS } from "@/algorithms/pathfinder/bfs";
+import {
+  BFS,
+  pseudocodeBFS,
+  descriptionBFS,
+} from "@/algorithms/pathfinder/bfs";
 import { Node } from "@/types/types";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
+import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 
 interface Props {
   grid: Node[][];
   setGrid: React.Dispatch<React.SetStateAction<Node[][]>>;
   rows: number;
   cols: number;
+  createGrid: () => void;
+  children: ReactNode;
 }
-const ControlPanel = ({ grid, setGrid, rows, cols }: Props) => {
+const ControlPanel = ({
+  grid,
+  setGrid,
+  rows,
+  cols,
+  createGrid,
+  children,
+}: Props) => {
   const [algorithm, setAlgorithm] = useState<string>();
+  const [algorithmDescription, setAlgorithmDescription] = useState<string>();
+  const [algorithmPseudocode, setPseudocode] = useState<string>();
+
   const visualiseAlgorithm = () => {
     switch (algorithm) {
-      case "BFS":
+      case "Breadth First Search":
         BFS(grid, grid[0][0], setGrid, rows, cols);
-        return;
+        break;
       default:
-        return;
+        break;
+    }
+  };
+
+  const handleAlgorithmChange = (value: string) => {
+    switch (value) {
+      case "Breadth First Search":
+        setAlgorithm("Breadth First Search");
+        setAlgorithmDescription(descriptionBFS);
+        setPseudocode(pseudocodeBFS);
+        break;
+      default:
+        break;
     }
   };
 
   return (
-    <div className="flex w-full py-14 justify-end gap-4">
-      <Select onValueChange={(val) => setAlgorithm(val)}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Search Algorithm" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="BFS">BFS</SelectItem>
-          <SelectItem value="DFS">DFS -- Coming Soon</SelectItem>
-        </SelectContent>
-      </Select>
-      <Button onClick={visualiseAlgorithm}>START VISUALISATION</Button>
-    </div>
+    <>
+      <div className="flex w-full py-8 justify-end gap-3">
+        <Select onValueChange={(val) => handleAlgorithmChange(val)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Search Algorithm" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Breadth First Search">
+              Breadth First Search
+            </SelectItem>
+            <SelectItem value="DFS">DFS -- Coming Soon</SelectItem>
+          </SelectContent>
+        </Select>
+        <Button onClick={visualiseAlgorithm}>START VISUALISATION</Button>
+        <Button variant="secondary" className="border" onClick={createGrid}>
+          CLEAR GRID
+        </Button>
+      </div>
+
+      {children}
+      {algorithm && (
+        <AlgorithmInfo
+          algorithm={algorithm}
+          description={algorithmDescription}
+          pseudocode={algorithmPseudocode}
+        />
+      )}
+    </>
   );
 };
 

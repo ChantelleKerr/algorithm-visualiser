@@ -15,9 +15,15 @@ const PathFinder = () => {
   }, []);
   return (
     <>
-      <ControlPanel grid={grid} setGrid={setGrid} rows={ROWS} cols={COLS} />
-      {/* <Legend /> */}
-      <Grid grid={grid} rows={ROWS} cols={COLS} />
+      <ControlPanel
+        grid={grid}
+        setGrid={setGrid}
+        rows={ROWS}
+        cols={COLS}
+        createGrid={createGrid}
+      >
+        <Grid grid={grid} rows={ROWS} cols={COLS} />
+      </ControlPanel>
     </>
   );
 };

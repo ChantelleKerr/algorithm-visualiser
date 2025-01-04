@@ -12,7 +12,7 @@ export const GridItem = styled.div<{
   nodetype: NodeType;
   nodestatus: NodeStatus;
 }>`
-  border: 0.5px solid black;
+  border: 0.5px solid #5dc0c9;
   height: 50px;
   background-color: ${(props) => {
     switch (props.nodetype) {
@@ -31,7 +31,7 @@ export const GridItem = styled.div<{
             return "#4ECDC4";
           case NodeStatus.Unseen:
           default:
-            return "white";
+            return "bg-transparent";
         }
     }
   }};

@@ -108,3 +108,24 @@ const getPath = (
     });
   });
 };
+
+export const pseudocodeBFS: string = `function bfs(graph, start):
+  visited = ()
+  queue = [start]
+  while queue is not empty:
+    current = queue.shift()
+    if current is end:
+      break;
+    if current is not in visited:
+      visited.add(current)
+      for each neighbour:
+        if neighbour not in visited:
+          queue.push(neightbour)`;
+
+export const descriptionBFS: string = `An algorithm used to traverse or search through graph or tree
+            structures. It starts at a given node, exploring all its immediate
+            neighbours before moving on to the neighbours of those nodes,
+            proceeding level by level. BFS uses a queue to keep track of nodes
+            to visit, ensuring each node is visited in the shortest possible
+            path from the start node in unweighted graphs. Its time complexity
+            is 𝑂(𝑉+𝐸), where 𝑉 represents vertices and 𝐸 represents edges.`;
