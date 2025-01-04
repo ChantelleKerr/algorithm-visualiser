@@ -12,6 +12,11 @@ import {
   pseudocodeBFS,
   descriptionBFS,
 } from "@/algorithms/pathfinder/bfs";
+import {
+  DFS,
+  pseudocodeDFS,
+  descriptionDFS,
+} from "@/algorithms/pathfinder/dfs";
 import { Node } from "@/types/types";
 import { ReactNode, useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
@@ -41,6 +46,9 @@ const ControlPanel = ({
       case "Breadth First Search":
         BFS(grid, grid[0][0], setGrid, rows, cols);
         break;
+      case "Depth First Search":
+        DFS(grid, grid[0][0], setGrid, rows, cols);
+        break;
       default:
         break;
     }
@@ -52,6 +60,11 @@ const ControlPanel = ({
         setAlgorithm("Breadth First Search");
         setAlgorithmDescription(descriptionBFS);
         setPseudocode(pseudocodeBFS);
+        break;
+      case "Depth First Search":
+        setAlgorithm("Depth First Search");
+        setAlgorithmDescription(descriptionDFS);
+        setPseudocode(pseudocodeDFS);
         break;
       default:
         break;
@@ -69,7 +82,9 @@ const ControlPanel = ({
             <SelectItem value="Breadth First Search">
               Breadth First Search
             </SelectItem>
-            <SelectItem value="DFS">DFS -- Coming Soon</SelectItem>
+            <SelectItem value="Depth First Search">
+              Depth First Search
+            </SelectItem>
           </SelectContent>
         </Select>
         <Button onClick={visualiseAlgorithm}>START VISUALISATION</Button>
