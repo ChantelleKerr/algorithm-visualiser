@@ -1,12 +1,11 @@
 "use client";
 import Grid from "@/components/Grid/Grid";
 import ControlPanel from "@/components/ControlPanel/ControlPanel";
-import Legend from "@/components/Grid/Legend";
-import useGrid from "@/hooks/UseGrid";
 import { useEffect } from "react";
+import { useGrid } from "@/context/GridProvider";
 
 const PathFinder = () => {
-  const { createGrid, grid, setGrid, ROWS, COLS } = useGrid();
+  const { createGrid, grid } = useGrid();
 
   useEffect(() => {
     if (grid.length === 0) {
@@ -15,14 +14,8 @@ const PathFinder = () => {
   }, []);
   return (
     <>
-      <ControlPanel
-        grid={grid}
-        setGrid={setGrid}
-        rows={ROWS}
-        cols={COLS}
-        createGrid={createGrid}
-      >
-        <Grid grid={grid} rows={ROWS} cols={COLS} />
+      <ControlPanel>
+        <Grid />
       </ControlPanel>
     </>
   );

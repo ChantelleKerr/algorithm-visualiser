@@ -20,34 +20,22 @@ import {
 import { Node } from "@/types/types";
 import { ReactNode, useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
+import { useGrid } from "@/context/GridProvider";
 
-interface Props {
-  grid: Node[][];
-  setGrid: React.Dispatch<React.SetStateAction<Node[][]>>;
-  rows: number;
-  cols: number;
-  createGrid: () => void;
-  children: ReactNode;
-}
-const ControlPanel = ({
-  grid,
-  setGrid,
-  rows,
-  cols,
-  createGrid,
-  children,
-}: Props) => {
+const ControlPanel = ({ children }: { children: React.ReactNode }) => {
+  const { createGrid, grid, setGrid, ROWS, COLS } = useGrid();
   const [algorithm, setAlgorithm] = useState<string>();
   const [algorithmDescription, setAlgorithmDescription] = useState<string>();
   const [algorithmPseudocode, setPseudocode] = useState<string>();
+  const [selectedNodeType, setSelectedNodeType] = useState<string>();
 
   const visualiseAlgorithm = () => {
     switch (algorithm) {
       case "Breadth First Search":
-        BFS(grid, grid[0][0], setGrid, rows, cols);
+        BFS(grid, grid[0][0], setGrid, ROWS, COLS);
         break;
       case "Depth First Search":
-        DFS(grid, grid[0][0], setGrid, rows, cols);
+        DFS(grid, grid[0][0], setGrid, ROWS, COLS);
         break;
       default:
         break;
@@ -71,9 +59,32 @@ const ControlPanel = ({
     }
   };
 
+  const handleNodeSelectionChange = (value: string) => {
+    switch (value) {
+      case "Start":
+        setSelectedNodeType("Start");
+        break;
+      case "End":
+        setSelectedNodeType("End");
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <div className="flex w-full py-8 justify-end gap-3">
+        <Select onValueChange={(val) => handleNodeSelectionChange(val)}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Node Selector" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Start">Select Start Node</SelectItem>
+            <SelectItem value="End">Select End Node</SelectItem>
+            <SelectItem value="Wall">Select Wall Node</SelectItem>
+          </SelectContent>
+        </Select>
         <Select onValueChange={(val) => handleAlgorithmChange(val)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Search Algorithm" />
@@ -87,9 +98,9 @@ const ControlPanel = ({
             </SelectItem>
           </SelectContent>
         </Select>
-        <Button onClick={visualiseAlgorithm}>START VISUALISATION</Button>
+        <Button onClick={visualiseAlgorithm}>VISUALISE</Button>
         <Button variant="secondary" className="border" onClick={createGrid}>
-          CLEAR GRID
+          CLEAR
         </Button>
       </div>
 

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Node, NodeType, NodeStatus } from "@/types/types";
+"use client";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { Node, NodeStatus, NodeType } from "@/types/types";
 
 const createNode = (
   row: number,
@@ -15,7 +16,17 @@ const createNode = (
   };
 };
 
-const useGrid = () => {
+interface GridContextType {
+  grid: Node[][];
+  setGrid: React.Dispatch<React.SetStateAction<Node[][]>>;
+  createGrid: () => void;
+  ROWS: number;
+  COLS: number;
+}
+
+const GridContext = createContext<GridContextType | undefined>(undefined);
+
+export const GridProvider = ({ children }: { children: React.ReactNode }) => {
   const [grid, setGrid] = useState<Node[][]>([]);
   const ROWS = 10;
   const COLS = 30;
@@ -40,7 +51,17 @@ const useGrid = () => {
     setGrid(newGrid);
   };
 
-  return { grid, setGrid, createGrid, ROWS, COLS };
+  return (
+    <GridContext.Provider value={{ grid, setGrid, createGrid, ROWS, COLS }}>
+      {children}
+    </GridContext.Provider>
+  );
 };
 
-export default useGrid;
+export const useGrid = () => {
+  const context = useContext(GridContext);
+  if (!context) {
+    throw new Error("useGrid must be used within a GridProvider");
+  }
+  return context;
+};
