@@ -4,13 +4,14 @@ import sleep from "@/utils/utils";
 
 export const DFS = async (
   grid: Node[][],
-  start: Node,
+  startNode: Node | null,
   setGrid: React.Dispatch<React.SetStateAction<Node[][]>>,
   ROWS: number,
   COLS: number
 ) => {
+  if (startNode === null) return;
   const visited = new Set<Node>();
-  const stack: Node[] = [start];
+  const stack: Node[] = [startNode];
   const parentMap: Map<Node, Node | null> = new Map();
 
   while (stack.length > 0) {
@@ -25,6 +26,7 @@ export const DFS = async (
       visited.add(current);
       current.status = NodeStatus.Seen;
 
+      // TODO MOVE INTO GridProvider
       setGrid((prevGrid) =>
         prevGrid.map((row) =>
           row.map((node) =>

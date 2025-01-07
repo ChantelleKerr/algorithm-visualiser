@@ -19,7 +19,14 @@ export const getNeighbours = (
   directions.forEach((direction) => {
     const newRow = row + direction.rowOffset;
     const newCol = col + direction.colOffset;
-    if (newRow >= 0 && newRow < ROWS && newCol >= 0 && newCol < COLS) {
+
+    if (
+      newRow >= 0 &&
+      newRow < ROWS &&
+      newCol >= 0 &&
+      newCol < COLS &&
+      grid[newRow][newCol].type !== NodeType.Wall
+    ) {
       neighbours.push(grid[newRow][newCol]);
     }
   });
@@ -50,8 +57,8 @@ export const getPath = (
         row.map((n, colIndex) =>
           rowIndex === node.row &&
           colIndex === node.col &&
-          node.type !== NodeType.Start &&
-          node.type !== NodeType.End
+          n.type !== NodeType.Start &&
+          n.type !== NodeType.End
             ? { ...n, type: NodeType.Path }
             : n
         )

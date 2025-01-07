@@ -4,13 +4,14 @@ import sleep from "@/utils/utils";
 
 export const BFS = async (
   grid: Node[][],
-  start: Node,
+  startNode: Node | null,
   setGrid: React.Dispatch<React.SetStateAction<Node[][]>>,
   ROWS: number,
   COLS: number
 ) => {
+  if (startNode === null) return;
   const visited = new Set<Node>();
-  const queue: Node[] = [start];
+  const queue: Node[] = [startNode];
   const parentMap: Map<Node, Node | null> = new Map();
 
   while (queue.length !== 0) {

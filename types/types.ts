@@ -2,7 +2,7 @@ export enum NodeType {
   Start = "Start",
   End = "End",
   Blank = "Blank",
-  Obstacle = "Obstacle",
+  Wall = "Wall",
   Path = "Path",
 }
 

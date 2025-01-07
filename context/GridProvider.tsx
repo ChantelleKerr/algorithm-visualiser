@@ -19,9 +19,14 @@ const createNode = (
 interface GridContextType {
   grid: Node[][];
   setGrid: React.Dispatch<React.SetStateAction<Node[][]>>;
+  clearGrid: () => void;
   createGrid: () => void;
+  startNode: Node | null;
   ROWS: number;
   COLS: number;
+  selectedNodeType: NodeType;
+  setSelectedNodeType: React.Dispatch<React.SetStateAction<NodeType>>;
+  updateNodeType: (row: number, cols: number, type: NodeType) => void;
 }
 
 const GridContext = createContext<GridContextType | undefined>(undefined);
@@ -30,18 +35,36 @@ export const GridProvider = ({ children }: { children: React.ReactNode }) => {
   const [grid, setGrid] = useState<Node[][]>([]);
   const ROWS = 10;
   const COLS = 30;
-  const START_POS = [0, 0];
-  const END_POS = [9, 9];
+  const [startNode, setStartNode] = useState<Node | null>(null);
+  const [endNode, setEndNode] = useState<Node | null>(null);
+
+  const [selectedNodeType, setSelectedNodeType] = useState<NodeType>(
+    NodeType.Start
+  );
 
   const createGrid = () => {
     const newGrid: Node[][] = [];
     for (let row = 0; row < ROWS; row++) {
       const newRow: Node[] = [];
       for (let col = 0; col < COLS; col++) {
-        if (START_POS[0] == row && START_POS[1] == col) {
-          newRow.push(createNode(row, col, NodeType.Start, NodeStatus.Unseen));
-        } else if (END_POS[0] == row && END_POS[1] == col) {
-          newRow.push(createNode(row, col, NodeType.End, NodeStatus.Unseen));
+        if (row === 0 && col === 0) {
+          const start = {
+            row,
+            col,
+            type: NodeType.Start,
+            status: NodeStatus.Unseen,
+          };
+          newRow.push(start);
+          setStartNode(start);
+        } else if (row === ROWS - 1 && col === COLS - 1) {
+          const end = {
+            row,
+            col,
+            type: NodeType.End,
+            status: NodeStatus.Unseen,
+          };
+          newRow.push(end);
+          setEndNode(end);
         } else {
           newRow.push(createNode(row, col, NodeType.Blank, NodeStatus.Unseen));
         }
@@ -51,8 +74,78 @@ export const GridProvider = ({ children }: { children: React.ReactNode }) => {
     setGrid(newGrid);
   };
 
+  const clearGrid = () => {
+    setGrid((prevGrid) => {
+      return prevGrid.map((row) =>
+        row.map((node) => {
+          if (node.type !== NodeType.Start && node.type !== NodeType.End) {
+            return { ...node, type: NodeType.Blank, status: NodeStatus.Unseen };
+          }
+          return node;
+        })
+      );
+    });
+  };
+
+  const updateNodeType = (row: number, col: number, type: NodeType) => {
+    setGrid((prevGrid) => {
+      if (type === NodeType.Start) {
+        prevGrid = prevGrid.map((gridRow) =>
+          gridRow.map((node) =>
+            node.type === NodeType.Start
+              ? { ...node, type: NodeType.Blank }
+              : node
+          )
+        );
+        setStartNode(prevGrid[row][col]);
+      }
+      if (type === NodeType.End) {
+        prevGrid = prevGrid.map((gridRow) =>
+          gridRow.map((node) =>
+            node.type === NodeType.End
+              ? { ...node, type: NodeType.Blank }
+              : node
+          )
+        );
+        setEndNode(prevGrid[row][col]);
+      }
+
+      if (type === NodeType.Wall) {
+        return prevGrid.map((gridRow, rowIndex) =>
+          gridRow.map((node, colIndex) =>
+            rowIndex === row &&
+            colIndex === col &&
+            node.type !== NodeType.Start &&
+            node.type !== NodeType.End
+              ? { ...node, type: NodeType.Wall }
+              : node
+          )
+        );
+      }
+
+      return prevGrid.map((gridRow, rowIndex) =>
+        gridRow.map((node, colIndex) =>
+          rowIndex === row && colIndex === col ? { ...node, type } : node
+        )
+      );
+    });
+  };
+
   return (
-    <GridContext.Provider value={{ grid, setGrid, createGrid, ROWS, COLS }}>
+    <GridContext.Provider
+      value={{
+        grid,
+        setGrid,
+        createGrid,
+        clearGrid,
+        startNode,
+        ROWS,
+        COLS,
+        selectedNodeType,
+        setSelectedNodeType,
+        updateNodeType,
+      }}
+    >
       {children}
     </GridContext.Provider>
   );

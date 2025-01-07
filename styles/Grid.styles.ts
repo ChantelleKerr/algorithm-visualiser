@@ -20,7 +20,7 @@ export const GridItem = styled.div<{
         return "#72D094";
       case NodeType.End:
         return "#EB7575";
-      case NodeType.Obstacle:
+      case NodeType.Wall:
         return "black";
       case NodeType.Path:
         return "#847996";

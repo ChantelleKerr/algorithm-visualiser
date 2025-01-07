@@ -17,25 +17,32 @@ import {
   pseudocodeDFS,
   descriptionDFS,
 } from "@/algorithms/pathfinder/dfs";
-import { Node } from "@/types/types";
+import { Node, NodeType } from "@/types/types";
 import { ReactNode, useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 import { useGrid } from "@/context/GridProvider";
 
 const ControlPanel = ({ children }: { children: React.ReactNode }) => {
-  const { createGrid, grid, setGrid, ROWS, COLS } = useGrid();
+  const {
+    clearGrid,
+    grid,
+    setGrid,
+    ROWS,
+    COLS,
+    setSelectedNodeType,
+    startNode,
+  } = useGrid();
   const [algorithm, setAlgorithm] = useState<string>();
   const [algorithmDescription, setAlgorithmDescription] = useState<string>();
   const [algorithmPseudocode, setPseudocode] = useState<string>();
-  const [selectedNodeType, setSelectedNodeType] = useState<string>();
 
   const visualiseAlgorithm = () => {
     switch (algorithm) {
       case "Breadth First Search":
-        BFS(grid, grid[0][0], setGrid, ROWS, COLS);
+        BFS(grid, startNode, setGrid, ROWS, COLS);
         break;
       case "Depth First Search":
-        DFS(grid, grid[0][0], setGrid, ROWS, COLS);
+        DFS(grid, startNode, setGrid, ROWS, COLS);
         break;
       default:
         break;
@@ -62,10 +69,13 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
   const handleNodeSelectionChange = (value: string) => {
     switch (value) {
       case "Start":
-        setSelectedNodeType("Start");
+        setSelectedNodeType(NodeType.Start);
         break;
       case "End":
-        setSelectedNodeType("End");
+        setSelectedNodeType(NodeType.End);
+        break;
+      case "Wall":
+        setSelectedNodeType(NodeType.Wall);
         break;
       default:
         break;
@@ -99,7 +109,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
           </SelectContent>
         </Select>
         <Button onClick={visualiseAlgorithm}>VISUALISE</Button>
-        <Button variant="secondary" className="border" onClick={createGrid}>
+        <Button variant="secondary" className="border" onClick={clearGrid}>
           CLEAR
         </Button>
       </div>
