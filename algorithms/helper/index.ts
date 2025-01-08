@@ -1,5 +1,8 @@
 import { Node, NodeType, NodeStatus } from "@/types/types";
 
+export const heuristic = (node: Node, endNode: Node) => {
+  return Math.abs(node.row - endNode.row) + Math.abs(node.col - endNode.col);
+};
 export const getNeighbours = (
   grid: Node[][],
   parent: Node,

@@ -17,6 +17,11 @@ import {
   pseudocodeDFS,
   descriptionDFS,
 } from "@/algorithms/pathfinder/dfs";
+import {
+  AStar,
+  pseudocodeAStar,
+  descriptionAStar,
+} from "@/algorithms/pathfinder/astar";
 import { Node, NodeType } from "@/types/types";
 import { ReactNode, useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
@@ -31,6 +36,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
     COLS,
     setSelectedNodeType,
     startNode,
+    endNode,
   } = useGrid();
   const [algorithm, setAlgorithm] = useState<string>();
   const [algorithmDescription, setAlgorithmDescription] = useState<string>();
@@ -43,6 +49,9 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         break;
       case "Depth First Search":
         DFS(grid, startNode, setGrid, ROWS, COLS);
+        break;
+      case "A*":
+        AStar(grid, startNode, endNode, setGrid, ROWS, COLS);
         break;
       default:
         break;
@@ -61,6 +70,10 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         setAlgorithmDescription(descriptionDFS);
         setPseudocode(pseudocodeDFS);
         break;
+      case "A*":
+        setAlgorithm("A*");
+        setAlgorithmDescription(descriptionAStar);
+        setPseudocode(pseudocodeAStar);
       default:
         break;
     }
@@ -106,6 +119,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
             <SelectItem value="Depth First Search">
               Depth First Search
             </SelectItem>
+            <SelectItem value="A*">A*</SelectItem>
           </SelectContent>
         </Select>
         <Button onClick={visualiseAlgorithm}>VISUALISE</Button>
