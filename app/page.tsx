@@ -5,7 +5,7 @@ export default function Home() {
   const navLinks = [
     {
       title: "SORTING",
-      image: "/pathfinder.webp",
+      image: "/sorting.webp",
       link: "/sorting",
       style: "bg-green border-green text-green",
     },
