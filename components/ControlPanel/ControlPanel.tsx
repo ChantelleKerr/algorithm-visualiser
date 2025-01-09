@@ -34,6 +34,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
     setGrid,
     ROWS,
     COLS,
+    selectedNodeType,
     setSelectedNodeType,
     startNode,
     endNode,
@@ -101,7 +102,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         <h1 className="text-xl">Pathfinder</h1>
         <div className="flex gap-3 flex-col md:flex-row">
           <Select
-            value={NodeType.Wall}
+            value={selectedNodeType}
             onValueChange={(val) => handleNodeSelectionChange(val)}
           >
             <SelectTrigger className="w-[180px]">
