@@ -34,8 +34,8 @@ const GridContext = createContext<GridContextType | undefined>(undefined);
 
 export const GridProvider = ({ children }: { children: React.ReactNode }) => {
   const [grid, setGrid] = useState<Node[][]>([]);
-  const ROWS = 6;
-  const COLS = 6;
+  const ROWS = 10;
+  const COLS = 20;
   const [startNode, setStartNode] = useState<Node | null>(null);
   const [endNode, setEndNode] = useState<Node | null>(null);
 
@@ -94,7 +94,7 @@ export const GridProvider = ({ children }: { children: React.ReactNode }) => {
         prevGrid = prevGrid.map((gridRow) =>
           gridRow.map((node) =>
             node.type === NodeType.Start
-              ? { ...node, type: NodeType.Blank }
+              ? { ...node, type: NodeType.Blank, status: NodeStatus.Unseen }
               : node
           )
         );

@@ -28,9 +28,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <GridProvider>
-          <div className="px-5">{children}</div>
-        </GridProvider>
+        <GridProvider>{children}</GridProvider>
       </body>
     </html>
   );

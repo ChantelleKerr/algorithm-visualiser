@@ -96,36 +96,39 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <>
-      <div className="flex w-full py-8 justify-end gap-3">
-        <Select onValueChange={(val) => handleNodeSelectionChange(val)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Node Selector" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Start">Select Start Node</SelectItem>
-            <SelectItem value="End">Select End Node</SelectItem>
-            <SelectItem value="Wall">Select Wall Node</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select onValueChange={(val) => handleAlgorithmChange(val)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Search Algorithm" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Breadth First Search">
-              Breadth First Search
-            </SelectItem>
-            <SelectItem value="Depth First Search">
-              Depth First Search
-            </SelectItem>
-            <SelectItem value="A*">A*</SelectItem>
-          </SelectContent>
-        </Select>
-        <Button onClick={visualiseAlgorithm}>VISUALISE</Button>
-        <Button variant="secondary" className="border" onClick={clearGrid}>
-          CLEAR
-        </Button>
+    <div className="p-5">
+      <div className="flex w-full justify-between py-3">
+        <h1 className="text-xl">Pathfinder</h1>
+        <div className="flex gap-3 flex-col md:flex-row">
+          <Select onValueChange={(val) => handleNodeSelectionChange(val)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Node Selector" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Start">Change Start Node</SelectItem>
+              <SelectItem value="End">Change End Node</SelectItem>
+              <SelectItem value="Wall">Add Wall Node</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select onValueChange={(val) => handleAlgorithmChange(val)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Search Algorithm" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Breadth First Search">
+                Breadth First Search
+              </SelectItem>
+              <SelectItem value="Depth First Search">
+                Depth First Search
+              </SelectItem>
+              <SelectItem value="A*">A*</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={visualiseAlgorithm}>VISUALISE</Button>
+          <Button variant="secondary" className="border" onClick={clearGrid}>
+            CLEAR
+          </Button>
+        </div>
       </div>
 
       {children}
@@ -136,7 +139,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
           pseudocode={algorithmPseudocode}
         />
       )}
-    </>
+    </div>
   );
 };
 
