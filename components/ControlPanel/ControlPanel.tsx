@@ -100,7 +100,10 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
       <div className="flex w-full justify-between py-3">
         <h1 className="text-xl">Pathfinder</h1>
         <div className="flex gap-3 flex-col md:flex-row">
-          <Select onValueChange={(val) => handleNodeSelectionChange(val)}>
+          <Select
+            value={NodeType.Wall}
+            onValueChange={(val) => handleNodeSelectionChange(val)}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Node Selector" />
             </SelectTrigger>

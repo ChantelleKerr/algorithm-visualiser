@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="text-primary font-extrabold text-4xl pt-20 text-center bg-green w-full">
+      <h1 className="text-primary font-extrabold text-4xl pt-20 text-center bg-red w-full">
         COMPUTER SCIENCE CONCEPTS
       </h1>
       <span className="flex justify-center font-extrabold text-xl text-center text-red w-full bg-primary">

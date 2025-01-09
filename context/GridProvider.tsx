@@ -40,7 +40,7 @@ export const GridProvider = ({ children }: { children: React.ReactNode }) => {
   const [endNode, setEndNode] = useState<Node | null>(null);
 
   const [selectedNodeType, setSelectedNodeType] = useState<NodeType>(
-    NodeType.Start
+    NodeType.Wall
   );
 
   const createGrid = () => {

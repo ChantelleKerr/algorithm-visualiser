@@ -23,6 +23,7 @@ const Grid = () => {
                 nodetype={node.type}
                 nodestatus={node.status}
                 onClick={() => handleNodeClick(node)}
+                className="cursor-pointer"
               />
             ))
           )}
