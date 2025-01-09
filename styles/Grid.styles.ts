@@ -21,7 +21,7 @@ export const GridItem = styled.div<{
       case NodeType.End:
         return "#EB7575";
       case NodeType.Wall:
-        return "black";
+        return "var(--primary)";
       case NodeType.Path:
         return "#847996";
       case NodeType.Blank:
@@ -31,7 +31,7 @@ export const GridItem = styled.div<{
             return "#4ECDC4";
           case NodeStatus.Unseen:
           default:
-            return "bg-transparent";
+            return "transparent";
         }
     }
   }};
