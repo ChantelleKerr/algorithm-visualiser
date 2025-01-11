@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
+import { SortProvider } from "@/context/SortProvider";
+import SortController from "@/components/ControlPanel/SortController";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <p>Sorting Layout</p>
-        {children}
+        <SortProvider>
+          <SortController>{children}</SortController>
+        </SortProvider>
       </body>
     </html>
   );

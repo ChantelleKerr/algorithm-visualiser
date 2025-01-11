@@ -1,23 +1,29 @@
 "use client";
-import { BubbleSort } from "@/algorithms/sort/bubbleSort";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
+
+import { useSort } from "@/context/SortProvider";
+import Legend from "@/components/Legend";
 
 const Page = () => {
-  const [array, setArray] = useState<number[]>([6, 23, 1, 34, 5, 3, 8]);
+  const { array, swappingIndices, pointerIndices } = useSort();
 
-  const handleClick = () => {
-    const arrayCopy = [...array];
-    setArray(BubbleSort(arrayCopy));
-  };
+  const legendItems = [
+    { colour: "bg-purple", label: "Pointers" },
+    { colour: "bg-green", label: "Swapping" },
+  ];
   return (
     <>
-      <Button onClick={handleClick}>Sort</Button>
-      <div className="flex flex-row gap-2 justify-center">
+      <Legend items={legendItems} />
+      <div className="flex flex-row gap-2 justify-center items-center my-11">
         {array.map((number, index) => (
           <div
             key={index}
-            className="flex justify-center items-center border w-10 h-10 md:w-20 md:h-20 "
+            className={`flex justify-center items-center border w-10 h-10 md:w-20 md:h-20 ${
+              swappingIndices?.includes(index)
+                ? "bg-green"
+                : pointerIndices?.includes(index)
+                ? "bg-purple"
+                : "bg-white"
+            }`}
           >
             {number}
           </div>

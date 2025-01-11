@@ -1,33 +1,50 @@
 import { BubbleSort } from "../bubbleSort";
 
 describe("BubbleSort", () => {
-  it("Sort Array in Ascending Order", () => {
+  const mockVisualiseSwap = jest.fn(async () => {});
+  it("Sort Array in Ascending Order", async () => {
     const input = [64, 34, 25, 12, 22, 11, 90];
     const expected = [11, 12, 22, 25, 34, 64, 90];
-    expect(BubbleSort(input)).toEqual(expected);
+
+    const result = await BubbleSort(input, mockVisualiseSwap);
+
+    expect(result).toEqual(expected);
+    expect(mockVisualiseSwap).toHaveBeenCalled();
   });
 
-  it("Already Sorted Array", () => {
+  it("Already Sorted Array", async () => {
     const input = [1, 2, 3, 4, 5];
     const expected = [1, 2, 3, 4, 5];
-    expect(BubbleSort(input)).toEqual(expected);
+    const result = await BubbleSort(input, mockVisualiseSwap);
+
+    expect(result).toEqual(expected);
+    expect(mockVisualiseSwap).toHaveBeenCalled();
   });
 
-  it("Duplicate Numbers in Array", () => {
+  it("Duplicate Numbers in Array", async () => {
     const input = [4, 2, 2, 8, 3, 3, 1];
     const expected = [1, 2, 2, 3, 3, 4, 8];
-    expect(BubbleSort(input)).toEqual(expected);
+    const result = await BubbleSort(input, mockVisualiseSwap);
+
+    expect(result).toEqual(expected);
+    expect(mockVisualiseSwap).toHaveBeenCalled();
   });
 
-  it("One Element", () => {
+  it("One Element", async () => {
     const input = [42];
     const expected = [42];
-    expect(BubbleSort(input)).toEqual(expected);
+    const result = await BubbleSort(input, mockVisualiseSwap);
+
+    expect(result).toEqual(expected);
+    expect(mockVisualiseSwap).toHaveBeenCalled();
   });
 
-  it("Empty Array", () => {
+  it("Empty Array", async () => {
     const input: number[] = [];
     const expected: number[] = [];
-    expect(BubbleSort(input)).toEqual(expected);
+    const result = await BubbleSort(input, mockVisualiseSwap);
+
+    expect(result).toEqual(expected);
+    expect(mockVisualiseSwap).toHaveBeenCalled();
   });
 });
