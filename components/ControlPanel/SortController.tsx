@@ -13,6 +13,12 @@ import {
   descriptionBubbleSort,
 } from "@/algorithms/sort/bubbleSort";
 
+import {
+  SelectionSort,
+  pseudocodeSelectionSort,
+  descriptionSelectionSort,
+} from "@/algorithms/sort/selectionSort";
+
 import { useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 import { useSort } from "@/context/SortProvider";
@@ -30,6 +36,9 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
       case "Bubble Sort":
         BubbleSort(array, visualiseSwap);
         break;
+      case "Selection Sort":
+        SelectionSort(array, visualiseSwap);
+        break;
       default:
         break;
     }
@@ -41,6 +50,11 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         setAlgorithm(value);
         setAlgorithmDescription(descriptionBubbleSort);
         setPseudocode(pseudocodeBubbleSort);
+        break;
+      case "Selection Sort":
+        setAlgorithm(value);
+        setAlgorithmDescription(descriptionSelectionSort);
+        setPseudocode(pseudocodeSelectionSort);
         break;
       default:
         break;
@@ -58,6 +72,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Bubble Sort">Bubble Sort</SelectItem>
+              <SelectItem value="Selection Sort">Selection Sort</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={visualiseAlgorithm}>SORT</Button>

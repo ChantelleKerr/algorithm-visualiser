@@ -1,8 +1,4 @@
-const swap = (array: number[], i: number, j: number): void => {
-  const temp = array[i];
-  array[i] = array[j];
-  array[j] = temp;
-};
+import { swap } from "@/algorithms/helper";
 
 export const BubbleSort = async (
   array: number[],
