@@ -1,11 +1,21 @@
 "use client";
 import { GridContainer, GridItem } from "@/styles/Grid.styles";
 import { Node, NodeType } from "@/types/types";
-import Legend from "@/components/Grid/Legend";
+import Legend from "@/components/Legend";
 import { useGrid } from "@/context/GridProvider";
 
 const Grid = () => {
   const { grid, ROWS, COLS, selectedNodeType, updateNodeType } = useGrid();
+
+  const legendItems = [
+    { colour: "bg-green", label: "Start" },
+    { colour: "bg-red", label: "End" },
+    { colour: "bg-purple", label: "Path" },
+    { colour: "bg-black", label: "Wall" },
+    { colour: "bg-blue", label: "Visited" },
+    { colour: "bg-white", label: "Unvisited" },
+  ];
+
   const handleNodeClick = (node: Node) => {
     if (node === undefined) return;
     updateNodeType(node.row, node.col, selectedNodeType);
@@ -14,7 +24,7 @@ const Grid = () => {
   return (
     <>
       <div className="w-full h-full flex flex-col items-center justify-center">
-        <Legend />
+        <Legend items={legendItems} />
         <GridContainer rows={ROWS} cols={COLS}>
           {grid.map((row, rowIndex) =>
             row.map((node, colIndex) => (
