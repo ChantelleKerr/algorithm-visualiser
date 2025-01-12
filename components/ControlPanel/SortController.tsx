@@ -19,13 +19,19 @@ import {
   descriptionSelectionSort,
 } from "@/algorithms/sort/selectionSort";
 
+import {
+  InsertionSort,
+  pseudocodeInsertionSort,
+  descriptionInsertionSort,
+} from "@/algorithms/sort/insertionSort";
+
 import { useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 import { useSort } from "@/context/SortProvider";
 import { useVisualisation } from "@/hooks/useVisualisation";
 
 const ControlPanel = ({ children }: { children: React.ReactNode }) => {
-  const { array, setPointerIndices, resetSort } = useSort();
+  const { array, resetSort } = useSort();
   const visualiseSwap = useVisualisation();
   const [algorithm, setAlgorithm] = useState<string>();
   const [algorithmDescription, setAlgorithmDescription] = useState<string>();
@@ -38,6 +44,9 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         break;
       case "Selection Sort":
         SelectionSort(array, visualiseSwap);
+        break;
+      case "Insertion Sort":
+        InsertionSort(array, visualiseSwap);
         break;
       default:
         break;
@@ -56,6 +65,11 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         setAlgorithmDescription(descriptionSelectionSort);
         setPseudocode(pseudocodeSelectionSort);
         break;
+      case "Insertion Sort":
+        setAlgorithm(value);
+        setAlgorithmDescription(descriptionInsertionSort);
+        setPseudocode(pseudocodeInsertionSort);
+        break;
       default:
         break;
     }
@@ -73,6 +87,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
             <SelectContent>
               <SelectItem value="Bubble Sort">Bubble Sort</SelectItem>
               <SelectItem value="Selection Sort">Selection Sort</SelectItem>
+              <SelectItem value="Insertion Sort">Insertion Sort</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={visualiseAlgorithm}>SORT</Button>
