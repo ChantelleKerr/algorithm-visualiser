@@ -2,6 +2,7 @@
 
 import { useSort } from "@/context/SortProvider";
 import Legend from "@/components/Legend";
+import { motion } from "framer-motion";
 
 const Page = () => {
   const { array, swappingIndices, pointerIndices } = useSort();
@@ -15,8 +16,9 @@ const Page = () => {
       <Legend items={legendItems} />
       <div className="flex flex-row gap-2 justify-center items-center my-11">
         {array.map((number, index) => (
-          <div
-            key={index}
+          <motion.div
+            key={number}
+            layout
             className={`flex justify-center items-center border w-10 h-10 md:w-20 md:h-20 ${
               swappingIndices?.includes(index)
                 ? "bg-green"
@@ -24,9 +26,15 @@ const Page = () => {
                 ? "bg-purple"
                 : "bg-white"
             }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              layout: { type: "spring", stiffness: 300, damping: 20 },
+            }}
           >
             {number}
-          </div>
+          </motion.div>
         ))}
       </div>
     </>
