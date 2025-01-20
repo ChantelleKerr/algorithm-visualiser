@@ -1,6 +1,6 @@
 "use client";
-import { GridContainer, GridItem } from "@/styles/Grid.styles";
-import { Node, NodeType } from "@/types/types";
+import { GridContainer, GridItem } from "@/components/Grid/Grid.styles";
+import { Node } from "@/types/types";
 import Legend from "@/components/Legend";
 import { useGrid } from "@/context/GridProvider";
 
