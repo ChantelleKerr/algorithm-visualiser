@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/app/globals.css";
-import { SortProvider } from "@/context/SortProvider";
+import { GridProvider } from "@/context/GridProvider";
 import SortController from "@/components/ControlPanel/SortController";
 
 const geistSans = Geist({
@@ -15,18 +15,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sorting Algorithms",
-  description: "Visualise Sorting Algorithms",
+  title: "Pathfinder Algorithms",
+  description: "Visualise Search Algorithms",
 };
 
-export default function SortingLayout({
+export default function PathFinderLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <SortProvider>
-      <SortController>{children}</SortController>
-    </SortProvider>
-  );
+  return <GridProvider>{children}</GridProvider>;
 }
