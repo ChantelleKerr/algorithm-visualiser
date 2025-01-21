@@ -1,31 +1,27 @@
 import { swap } from "@/algorithms/helper";
 export const SelectionSort = async (
   array: number[],
-  visualiseSwap: (
-    array: number[],
-    indices: [number, number],
-    pointers: [number, number]
-  ) => void
+  visualiseSwap: (array: number[], indices: [number, number]) => void,
+  visualisePointers: (pointers: [number, number]) => void
 ) => {
   const n: number = array.length;
   for (let i = 0; i < n - 1; i++) {
     let min = i;
 
-    await visualiseSwap(array, [-1, -1], [i, min]);
+    await visualisePointers([i, min]);
 
     for (let j = i + 1; j < n; j++) {
-      await visualiseSwap(array, [-1, -1], [i, j]);
+      await visualisePointers([i, j]);
 
       if (array[j] < array[min]) {
         min = j;
       }
     }
 
-    await visualiseSwap(array, [-1, -1], [i, min]);
-
     if (min != i) {
-      await visualiseSwap(array, [i, min], [i, min]);
+      await visualiseSwap(array, [i, min]);
       swap(array, i, min);
+      await visualiseSwap(array, [i, min]);
     }
   }
   return array;

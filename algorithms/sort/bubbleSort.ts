@@ -2,21 +2,18 @@ import { swap } from "@/algorithms/helper";
 
 export const BubbleSort = async (
   array: number[],
-  visualiseSwap: (
-    array: number[],
-    indices: [number, number],
-    pointers: [number, number]
-  ) => void
+  visualiseSwap: (array: number[], indices: [number, number]) => void,
+  visualisePointers: (pointers: [number, number]) => void
 ) => {
   let n: number = array.length;
   let swapped: boolean = true;
   while (swapped) {
     swapped = false;
     for (let i = 1; i < n; i++) {
-      await visualiseSwap([...array], [-1, -1], [i - 1, i]);
+      await visualisePointers([i - 1, i]);
       if (array[i - 1] > array[i]) {
         swap(array, i - 1, i);
-        await visualiseSwap([...array], [i - 1, i], [i - 1, i]);
+        await visualiseSwap([...array], [i - 1, i]);
         swapped = true;
       }
     }

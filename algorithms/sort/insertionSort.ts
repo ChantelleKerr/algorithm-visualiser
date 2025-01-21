@@ -2,23 +2,21 @@ import { swap } from "../helper";
 
 export const InsertionSort = async (
   array: number[],
-  visualiseSwap: (
-    array: number[],
-    indices: [number, number],
-    pointers: [number, number]
-  ) => void
+  visualiseSwap: (array: number[], indices: [number, number]) => void,
+  visualisePointers: (pointers: [number, number]) => void
 ) => {
   const n = array.length;
   for (let i = 1; i < n; i++) {
     let j = i;
     while (j > 0 && array[j - 1] > array[j]) {
-      await visualiseSwap(array, [j, j - 1], [j - 1, j]);
+      await visualisePointers([j - 1, j]);
+      await visualiseSwap(array, [j, j - 1]);
       swap(array, j, j - 1);
-      await visualiseSwap(array, [j, j - 1], [j - 1, j]);
+      await visualiseSwap(array, [j, j - 1]);
       j--;
     }
 
-    await visualiseSwap(array, [-1, -1], [i, i + 1]);
+    await visualisePointers([i, i + 1]);
   }
   return array;
 };

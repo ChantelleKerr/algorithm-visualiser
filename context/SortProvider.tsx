@@ -12,12 +12,14 @@ interface SortContextType {
   resetSort: () => void;
   pivotIndex: number | null;
   setPivotIndex: (pivot: number) => void;
+  setPartitionIndices: (pointers: [number, number] | null) => void;
+  partitionIndices: [number, number] | null;
 }
 
 const SortContext = createContext<SortContextType | undefined>(undefined);
 
 export const SortProvider = ({ children }: { children: ReactNode }) => {
-  const initialArray = [6, 23, 1, 34, 5, 3, 8];
+  const initialArray = [6, 23, 1, 34, 5, 3, 8, 10, 50, 7, 18];
   const [array, setArray] = useState<number[]>(initialArray);
   const [swappingIndices, setSwappingIndices] = useState<
     [number, number] | null
@@ -27,6 +29,9 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
   );
 
   const [pivotIndex, setPivotIndex] = useState<number | null>(null);
+  const [partitionIndices, setPartitionIndices] = useState<
+    [number, number] | null
+  >(null);
 
   const resetSort = () => {
     setArray(initialArray);
@@ -46,6 +51,8 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
         resetSort,
         setPivotIndex,
         pivotIndex,
+        setPartitionIndices,
+        partitionIndices,
       }}
     >
       {children}

@@ -29,11 +29,20 @@ import { useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 import { useSort } from "@/context/SortProvider";
 import { useVisualisation } from "@/hooks/useVisualisation";
-import { QuickSort } from "@/algorithms/sort/quickSort";
+import {
+  descriptionQuickSort,
+  pseudocodeQuickSort,
+  QuickSort,
+} from "@/algorithms/sort/quickSort";
 
 const ControlPanel = ({ children }: { children: React.ReactNode }) => {
   const { array, resetSort } = useSort();
-  const visualiseSwap = useVisualisation();
+  const {
+    visualiseSwap,
+    visualisePointers,
+    visualisePivot,
+    visualisePartition,
+  } = useVisualisation();
   const [algorithm, setAlgorithm] = useState<string>();
   const [algorithmDescription, setAlgorithmDescription] = useState<string>();
   const [algorithmPseudocode, setPseudocode] = useState<string>();
@@ -41,16 +50,24 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
   const visualiseAlgorithm = () => {
     switch (algorithm) {
       case "Bubble Sort":
-        BubbleSort(array, visualiseSwap);
+        BubbleSort(array, visualiseSwap, visualisePointers);
         break;
       case "Selection Sort":
-        SelectionSort(array, visualiseSwap);
+        SelectionSort(array, visualiseSwap, visualisePointers);
         break;
       case "Insertion Sort":
-        InsertionSort(array, visualiseSwap);
+        InsertionSort(array, visualiseSwap, visualisePointers);
         break;
       case "Quick Sort":
-        QuickSort(array, 0, array.length - 1, visualiseSwap);
+        QuickSort(
+          array,
+          0,
+          array.length - 1,
+          visualiseSwap,
+          visualisePointers,
+          visualisePivot,
+          visualisePartition
+        );
         break;
       default:
         break;
@@ -76,8 +93,8 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         break;
       case "Quick Sort":
         setAlgorithm(value);
-        //setAlgorithmDescription(descriptionInsertionSort);
-        //setPseudocode(pseudocodeInsertionSort);
+        setAlgorithmDescription(descriptionQuickSort);
+        setPseudocode(pseudocodeQuickSort);
         break;
       default:
         break;
