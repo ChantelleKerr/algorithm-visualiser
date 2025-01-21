@@ -29,6 +29,7 @@ import { useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 import { useSort } from "@/context/SortProvider";
 import { useVisualisation } from "@/hooks/useVisualisation";
+import { QuickSort } from "@/algorithms/sort/quickSort";
 
 const ControlPanel = ({ children }: { children: React.ReactNode }) => {
   const { array, resetSort } = useSort();
@@ -47,6 +48,9 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         break;
       case "Insertion Sort":
         InsertionSort(array, visualiseSwap);
+        break;
+      case "Quick Sort":
+        QuickSort(array, 0, array.length - 1, visualiseSwap);
         break;
       default:
         break;
@@ -70,6 +74,11 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         setAlgorithmDescription(descriptionInsertionSort);
         setPseudocode(pseudocodeInsertionSort);
         break;
+      case "Quick Sort":
+        setAlgorithm(value);
+        //setAlgorithmDescription(descriptionInsertionSort);
+        //setPseudocode(pseudocodeInsertionSort);
+        break;
       default:
         break;
     }
@@ -88,6 +97,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
               <SelectItem value="Bubble Sort">Bubble Sort</SelectItem>
               <SelectItem value="Selection Sort">Selection Sort</SelectItem>
               <SelectItem value="Insertion Sort">Insertion Sort</SelectItem>
+              <SelectItem value="Quick Sort">Quick Sort</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={visualiseAlgorithm}>SORT</Button>

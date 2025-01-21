@@ -10,6 +10,8 @@ interface SortContextType {
   pointerIndices: [number, number] | null;
   setPointerIndices: (pointers: [number, number] | null) => void;
   resetSort: () => void;
+  pivotIndex: number | null;
+  setPivotIndex: (pivot: number) => void;
 }
 
 const SortContext = createContext<SortContextType | undefined>(undefined);
@@ -23,6 +25,8 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
   const [pointerIndices, setPointerIndices] = useState<[number, number] | null>(
     null
   );
+
+  const [pivotIndex, setPivotIndex] = useState<number | null>(null);
 
   const resetSort = () => {
     setArray(initialArray);
@@ -40,6 +44,8 @@ export const SortProvider = ({ children }: { children: ReactNode }) => {
         pointerIndices,
         setPointerIndices,
         resetSort,
+        setPivotIndex,
+        pivotIndex,
       }}
     >
       {children}
