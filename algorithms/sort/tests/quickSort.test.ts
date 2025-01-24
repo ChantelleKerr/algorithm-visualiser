@@ -2,6 +2,9 @@ import { QuickSort } from "../quickSort";
 
 describe("Quick Sort", () => {
   const mockVisualiseSwap = jest.fn(async () => {});
+  const mockVisualisePointers = jest.fn(async () => {});
+  const mockVisualisePivot = jest.fn(async () => {});
+  const mockVisualisePartition = jest.fn(async () => {});
   it("Sort Array in Ascending Order", async () => {
     const input = [64, 34, 25, 12, 22, 11, 90];
     const expected = [11, 12, 22, 25, 34, 64, 90];
@@ -10,7 +13,10 @@ describe("Quick Sort", () => {
       input,
       0,
       input.length - 1,
-      mockVisualiseSwap
+      mockVisualiseSwap,
+      mockVisualisePointers,
+      mockVisualisePivot,
+      mockVisualisePartition
     );
 
     expect(result).toEqual(expected);
@@ -24,7 +30,10 @@ describe("Quick Sort", () => {
       input,
       0,
       input.length - 1,
-      mockVisualiseSwap
+      mockVisualiseSwap,
+      mockVisualisePointers,
+      mockVisualisePivot,
+      mockVisualisePartition
     );
 
     expect(result).toEqual(expected);
@@ -38,7 +47,10 @@ describe("Quick Sort", () => {
       input,
       0,
       input.length - 1,
-      mockVisualiseSwap
+      mockVisualiseSwap,
+      mockVisualisePointers,
+      mockVisualisePivot,
+      mockVisualisePartition
     );
 
     expect(result).toEqual(expected);
@@ -52,7 +64,10 @@ describe("Quick Sort", () => {
       input,
       0,
       input.length - 1,
-      mockVisualiseSwap
+      mockVisualiseSwap,
+      mockVisualisePointers,
+      mockVisualisePivot,
+      mockVisualisePartition
     );
 
     expect(result).toEqual(expected);
@@ -66,7 +81,10 @@ describe("Quick Sort", () => {
       input,
       0,
       input.length - 1,
-      mockVisualiseSwap
+      mockVisualiseSwap,
+      mockVisualisePointers,
+      mockVisualisePivot,
+      mockVisualisePartition
     );
 
     expect(result).toEqual(expected);
