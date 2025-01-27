@@ -22,8 +22,8 @@ import {
   pseudocodeAStar,
   descriptionAStar,
 } from "@/algorithms/pathfinder/astar";
-import { Node, NodeType } from "@/types/types";
-import { ReactNode, useState } from "react";
+import { NodeType } from "@/types/types";
+import { useState } from "react";
 import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
 import { useGrid } from "@/context/GridProvider";
 

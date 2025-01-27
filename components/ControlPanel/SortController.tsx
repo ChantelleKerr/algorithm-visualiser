@@ -1,5 +1,10 @@
 "use client";
+import { useState } from "react";
+import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
+import { useSort } from "@/context/SortProvider";
+import { useVisualisation } from "@/hooks/useVisualisation";
 import { Button } from "@/components/ui/button";
+
 import {
   Select,
   SelectContent,
@@ -12,30 +17,24 @@ import {
   pseudocodeBubbleSort,
   descriptionBubbleSort,
 } from "@/algorithms/sort/bubbleSort";
-
 import {
   SelectionSort,
   pseudocodeSelectionSort,
   descriptionSelectionSort,
 } from "@/algorithms/sort/selectionSort";
-
 import {
   InsertionSort,
   pseudocodeInsertionSort,
   descriptionInsertionSort,
 } from "@/algorithms/sort/insertionSort";
-
-import { useState } from "react";
-import AlgorithmInfo from "@/components/ControlPanel/AlgorithmInfo";
-import { useSort } from "@/context/SortProvider";
-import { useVisualisation } from "@/hooks/useVisualisation";
 import {
   descriptionQuickSort,
   pseudocodeQuickSort,
   QuickSort,
 } from "@/algorithms/sort/quickSort";
+import { MergeSort } from "@/algorithms/sort/mergeSort";
 
-const ControlPanel = ({ children }: { children: React.ReactNode }) => {
+const SortController = ({ children }: { children: React.ReactNode }) => {
   const { array, resetSort } = useSort();
   const {
     visualiseSwap,
@@ -69,6 +68,9 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
           visualisePartition
         );
         break;
+      case "Merge Sort":
+        MergeSort(array, 0, array.length - 1, visualiseSwap, visualisePointers);
+        break;
       default:
         break;
     }
@@ -96,6 +98,11 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
         setAlgorithmDescription(descriptionQuickSort);
         setPseudocode(pseudocodeQuickSort);
         break;
+      case "Merge Sort":
+        setAlgorithm(value);
+        // setAlgorithmDescription(descriptionQuickSort);
+        // setPseudocode(pseudocodeQuickSort);
+        break;
       default:
         break;
     }
@@ -115,6 +122,7 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
               <SelectItem value="Selection Sort">Selection Sort</SelectItem>
               <SelectItem value="Insertion Sort">Insertion Sort</SelectItem>
               <SelectItem value="Quick Sort">Quick Sort</SelectItem>
+              <SelectItem value="Merge Sort">Merge Sort</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={visualiseAlgorithm}>SORT</Button>
@@ -136,4 +144,4 @@ const ControlPanel = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default ControlPanel;
+export default SortController;
