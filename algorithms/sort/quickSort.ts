@@ -21,9 +21,7 @@ const partition = async (
       await visualisePointers([i, j]);
       if (i !== j) {
         await visualiseSwap([...array], [i, j]);
-        console.log("HI");
         swap(array, i, j);
-        console.log("BYE");
         await visualiseSwap([...array], [i, j]);
       }
       i++;
