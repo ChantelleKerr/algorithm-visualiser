@@ -32,7 +32,6 @@ import {
   pseudocodeQuickSort,
   QuickSort,
 } from "@/algorithms/sort/quickSort";
-import { MergeSort } from "@/algorithms/sort/mergeSort";
 
 const SortController = ({ children }: { children: React.ReactNode }) => {
   const { array, resetSort } = useSort();
@@ -46,7 +45,7 @@ const SortController = ({ children }: { children: React.ReactNode }) => {
   const [algorithmDescription, setAlgorithmDescription] = useState<string>();
   const [algorithmPseudocode, setPseudocode] = useState<string>();
 
-  const visualiseAlgorithm = () => {
+  const visualiseAlgorithm = async () => {
     switch (algorithm) {
       case "Bubble Sort":
         BubbleSort(array, visualiseSwap, visualisePointers);
@@ -67,9 +66,6 @@ const SortController = ({ children }: { children: React.ReactNode }) => {
           visualisePivot,
           visualisePartition
         );
-        break;
-      case "Merge Sort":
-        MergeSort(array, 0, array.length - 1, visualiseSwap, visualisePointers);
         break;
       default:
         break;
@@ -98,11 +94,6 @@ const SortController = ({ children }: { children: React.ReactNode }) => {
         setAlgorithmDescription(descriptionQuickSort);
         setPseudocode(pseudocodeQuickSort);
         break;
-      case "Merge Sort":
-        setAlgorithm(value);
-        // setAlgorithmDescription(descriptionQuickSort);
-        // setPseudocode(pseudocodeQuickSort);
-        break;
       default:
         break;
     }
@@ -122,7 +113,6 @@ const SortController = ({ children }: { children: React.ReactNode }) => {
               <SelectItem value="Selection Sort">Selection Sort</SelectItem>
               <SelectItem value="Insertion Sort">Insertion Sort</SelectItem>
               <SelectItem value="Quick Sort">Quick Sort</SelectItem>
-              <SelectItem value="Merge Sort">Merge Sort</SelectItem>
             </SelectContent>
           </Select>
           <Button onClick={visualiseAlgorithm}>SORT</Button>
