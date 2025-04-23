@@ -4,7 +4,7 @@ import { Cell, CellType } from "@/types/types";
 
 interface DPTableContextType {
   table: Cell[][];
-  createTable: React.Dispatch<React.SetStateAction<Cell[][]>>;
+  createTable: () => void;
   coins: number[];
   target: number;
 }
