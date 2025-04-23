@@ -15,6 +15,12 @@ export default function Home() {
       link: "/pathfinder",
       style: "bg-red border-red text-red",
     },
+    {
+      title: "DP",
+      image: "/pathfinder.webp",
+      link: "/dp",
+      style: "bg-purple border-purple text-purple",
+    },
   ];
   return (
     <div className="flex flex-col min-h-screen">

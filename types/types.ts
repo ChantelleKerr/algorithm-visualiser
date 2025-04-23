@@ -22,3 +22,12 @@ export interface GridContainerProps {
   rows: number;
   cols: number;
 }
+
+export enum CellType {
+  Header = "Header",
+  Blank = "Blank",
+}
+export interface Cell {
+  value: number;
+  type: CellType;
+}

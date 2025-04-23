@@ -19,7 +19,7 @@ interface SortContextType {
 const SortContext = createContext<SortContextType | undefined>(undefined);
 
 export const SortProvider = ({ children }: { children: ReactNode }) => {
-  const initialArray = [6, 23, 1, 34, 5, 3, 8, 10, 50, 7, 18];
+  const initialArray = [6, 23, 1, 34, 5, 3, 8];
   const [array, setArray] = useState<number[]>(initialArray);
   const [swappingIndices, setSwappingIndices] = useState<
     [number, number] | null
